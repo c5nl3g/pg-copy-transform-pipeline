@@ -1,7 +1,7 @@
 import pkgJson from "../../package.json";
 import { TRANSFORM_MODULE_FILE_NAME } from "./transform-module";
 
-export const CONFIG_FILE_NAME = `${pkgJson.name}.config.ts`;
+export const CONFIG_FILE_NAME = `${pkgJson.aliasName}.config.ts`;
 export const CONFIG_TEMPLATE = `import { defineConfig, sourceDB } from "${pkgJson.name}";
 
 export default defineConfig({

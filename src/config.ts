@@ -11,7 +11,7 @@ import {
 
 import type { Config } from "~/types";
 
-const debug = createDebug(`${pkgJson.name}:config`);
+const debug = createDebug(`${pkgJson.aliasName}:config`);
 
 export function initTemplate(filename: string, template: string) {
   const target = path.join(process.cwd(), filename);
@@ -41,7 +41,7 @@ export async function resolveConfig(): Promise<Config> {
   const loader = createConfigLoader<Config>({
     sources: [
       {
-        files: [`${pkgJson.name}.config`],
+        files: [`${pkgJson.aliasName}.config`],
       },
     ],
     cwd: process.cwd(),

@@ -7,7 +7,7 @@ import { mainEffect } from "./main";
 import { CONFIG_FILE_NAME } from "./templates/config";
 import { initConfig, initTransformModule, resolveConfig } from "~/config";
 
-const cli = cac(pkgJson.name);
+const cli = cac(pkgJson.aliasName);
 
 cli.option("--config [config]", "Config file", {
   default: CONFIG_FILE_NAME,
@@ -40,7 +40,9 @@ cli.command("start", "Start copy and transform").action(async () => {
 
   const resolved = await resolveConfig();
   if (!resolved) {
-    console.error(`Error: No configuration found. Run \`${pkgJson.name} init\` to get started.`);
+    console.error(
+      `Error: No configuration found. Run \`${pkgJson.aliasName} init\` to get started.`,
+    );
     process.exit(1);
   }
   console.log(resolved);

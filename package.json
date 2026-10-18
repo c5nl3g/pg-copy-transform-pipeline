@@ -73,5 +73,6 @@
     "*.{js,jsx,ts,tsx,mjs,cjs}": "oxlint --type-aware --type-check --no-error-on-unmatched-pattern",
     "*": "oxfmt --no-error-on-unmatched-pattern"
   },
-  "packageManager": "pnpm@12.14.0"
+  "packageManager": "pnpm@12.14.0",
+  "aliasName": "pctp"
 }
