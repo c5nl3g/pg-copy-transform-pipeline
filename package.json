@@ -52,6 +52,7 @@
     "obug": "3.0.0",
     "pg": "8.23.1",
     "pg-copy-streams": "7.0.0",
+    "typescript": "latest",
     "unconfig": "7.5.0"
   },
   "devDependencies": {
@@ -66,7 +67,6 @@
     "oxlint-tsgolint": "7.0.2003",
     "tsdown": "0.23.1",
     "tsx": "4.23.15",
-    "typescript": "latest",
     "vitest": "5.0.5"
   },
   "lint-staged": {
