@@ -1,6 +1,6 @@
 {
   "name": "pctp",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "PostgreSQL COPY Transform Pipeline",
   "homepage": "https://github.com/c5nl3g/pctp#readme",
   "bugs": {
