@@ -36,6 +36,7 @@
     "lint": "oxlint --type-aware --type-check",
     "lint:fix": "oxlint --fix",
     "prepare": "husky && effect-tsgo patch --no-typescript --oxlint",
+    "prepublishOnly": "pnpm build",
     "test": "vitest",
     "typecheck": "tsc"
   },
