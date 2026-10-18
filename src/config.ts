@@ -1,8 +1,7 @@
-import fs from "node:fs";
-import path from "node:path";
 import { createDebug } from "obug";
 import { createConfigLoader } from "unconfig";
 import pkgJson from "../package.json";
+import { initTemplate } from "./templates";
 import { CONFIG_FILE_NAME, CONFIG_TEMPLATE } from "./templates/config";
 import {
   TRANSFORM_MODULE_FILE_NAME,
@@ -12,18 +11,6 @@ import {
 import type { Config } from "~/types";
 
 const debug = createDebug(`${pkgJson.aliasName}:config`);
-
-export function initTemplate(filename: string, template: string) {
-  const target = path.join(process.cwd(), filename);
-
-  if (fs.existsSync(target)) {
-    console.log(`${filename} exists, skipped`);
-    return;
-  }
-
-  fs.writeFileSync(target, template, "utf8");
-  console.log(`created ${filename}:${target}`);
-}
 
 export function initConfig() {
   initTemplate(CONFIG_FILE_NAME, CONFIG_TEMPLATE);

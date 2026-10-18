@@ -6,9 +6,13 @@ import {
 import fs from "node:fs";
 import path from "node:path";
 import { Pool } from "pg";
-import pkgJson from "../package.json";
-
-const MARKER = `// --- ${pkgJson.name} augmentation ---`;
+import { initTemplate } from "./templates";
+import {
+  TYPE_DECLARATION_FILE_NAME,
+  TYPE_DECLARATION_SOURCE_DB_FILE_NAME,
+  TYPE_DECLARATION_TARGET_DB_FILE_NAME,
+  TYPE_DECLARATION_TEMPLATE,
+} from "./templates/types";
 
 async function runCodegen(url: string, outFile: string) {
   const db = new Kysely<any>({
@@ -28,19 +32,8 @@ async function runCodegen(url: string, outFile: string) {
   }
 }
 
-function appendAugmentation(file: string, interfaceName: "SourceDB" | "TargetDB") {
-  const content = fs.readFileSync(file, "utf8");
-  if (content.includes(MARKER)) return;
-
-  const augmentation = `
-${MARKER}
-import "${pkgJson.name}"
-
-declare module "${pkgJson.name}" {
-    interface ${interfaceName} extends DB {}
-}
-`;
-  fs.appendFileSync(file, augmentation, "utf8");
+export function initDeclarationFile() {
+  initTemplate(TYPE_DECLARATION_FILE_NAME, TYPE_DECLARATION_TEMPLATE);
 }
 
 export async function generateTypes(options: {
@@ -51,16 +44,17 @@ export async function generateTypes(options: {
   const outDir = path.resolve(options.outDir ?? process.cwd());
   fs.mkdirSync(outDir, { recursive: true });
 
-  const sourceFile = path.join(outDir, "source-db.d.ts");
-  const targetFile = path.join(outDir, "target-db.d.ts");
+  const sourceFile = path.join(outDir, TYPE_DECLARATION_SOURCE_DB_FILE_NAME);
+  const targetFile = path.join(outDir, TYPE_DECLARATION_TARGET_DB_FILE_NAME);
 
-  console.log("generating source-db.d.ts ...");
+  console.log(`generating ${TYPE_DECLARATION_SOURCE_DB_FILE_NAME}...`);
   await runCodegen(options.sourceDatabaseUrl, sourceFile);
-  appendAugmentation(sourceFile, "SourceDB");
 
-  console.log("generating target-db.d.ts ...");
+  console.log(`generating ${TYPE_DECLARATION_TARGET_DB_FILE_NAME}...`);
   await runCodegen(options.targetDatabaseUrl, targetFile);
-  appendAugmentation(targetFile, "TargetDB");
+
+  console.log(`generating declaration file...`);
+  initDeclarationFile();
 
   console.log(`DONE:\n  ${sourceFile}\n  ${targetFile}`);
 }

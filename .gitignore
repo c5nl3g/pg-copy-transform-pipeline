@@ -1,6 +1,7 @@
 # dev/build outputs
 dist
 pctp.config.ts
+pctp.d.ts
 source-db.d.ts
 target-db.d.ts
 pctp-transform-module.ts

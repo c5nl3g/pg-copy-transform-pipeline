@@ -1,8 +1,10 @@
 import pkgJson from "../../package.json";
 import { TRANSFORM_MODULE_FILE_NAME } from "./transform-module";
+import { TYPE_DECLARATION_FILE_NAME } from "./types";
 
 export const CONFIG_FILE_NAME = `${pkgJson.aliasName}.config.ts`;
 export const CONFIG_TEMPLATE = `import { defineConfig, sourceDB } from "${pkgJson.name}";
+import "./${TYPE_DECLARATION_FILE_NAME}";
 
 export default defineConfig({
   sourceSelectSQL: sourceDB,
