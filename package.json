@@ -1,6 +1,6 @@
 {
   "name": "pg-copy-transform-pipeline",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "PostgreSQL COPY Transform Pipeline",
   "homepage": "https://github.com/c5nl3g/pg-copy-transform-pipeline#readme",
   "bugs": {
