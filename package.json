@@ -1,0 +1,76 @@
+{
+  "name": "pctp",
+  "version": "0.0.0",
+  "description": "PostgreSQL COPY Transform Pipeline",
+  "homepage": "https://github.com/c5nl3g/pctp#readme",
+  "bugs": {
+    "url": "https://github.com/c5nl3g/pctp/issues"
+  },
+  "license": "MIT",
+  "author": "c5nl3g <c5nl3g@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c5nl3g/pctp.git"
+  },
+  "bin": {
+    "pctp": "bin/pctp.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "types": "dist/index.d.mts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./cli": "./dist/cli.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "DEBUG=pctp:* tsx ./src/cli.ts",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "lint": "oxlint --type-aware --type-check",
+    "lint:fix": "oxlint --fix",
+    "prepare": "husky && effect-tsgo patch --no-typescript --oxlint",
+    "test": "vitest",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@effect/platform-node": "4.0.5",
+    "cac": "7.1.0",
+    "csv-parse": "7.0.3",
+    "csv-stringify": "6.9.0",
+    "dotenv": "18.0.8",
+    "effect": "4.0.5",
+    "kysely": "0.29.7",
+    "kysely-codegen": "0.20.0",
+    "obug": "3.0.0",
+    "pg": "8.23.1",
+    "pg-copy-streams": "7.0.0",
+    "unconfig": "7.5.0"
+  },
+  "devDependencies": {
+    "@effect/tsgo": "0.53.3",
+    "@types/node": "26.6.5",
+    "@types/pg": "8.23.1",
+    "@types/pg-copy-streams": "1.2.5",
+    "husky": "9.1.7",
+    "lint-staged": "17.6.0",
+    "oxfmt": "latest",
+    "oxlint": "1.87.0",
+    "oxlint-tsgolint": "7.0.2003",
+    "tsdown": "0.23.1",
+    "tsx": "4.23.15",
+    "typescript": "latest",
+    "vitest": "5.0.5"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": "oxlint --type-aware --type-check --no-error-on-unmatched-pattern",
+    "*": "oxfmt --no-error-on-unmatched-pattern"
+  },
+  "packageManager": "pnpm@12.14.0"
+}

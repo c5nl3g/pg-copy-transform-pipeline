@@ -1,0 +1,25 @@
+# dev/build outputs
+dist
+pctp.config.ts
+source-db.d.ts
+target-db.d.ts
+pctp-transform-module.ts
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+
+# checkpoint
+checkpoint.json

@@ -1,0 +1,5 @@
+saveExact: true
+minimumReleaseAge: 0
+
+allowBuilds:
+  esbuild: true
