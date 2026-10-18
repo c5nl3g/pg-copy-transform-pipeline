@@ -1,4 +1,4 @@
-# pctp (Postgres Copy Transform Pipeline)
+# Postgres Copy Transform Pipeline
 
 > [!IMPORTANT]
 > This project is still in the early stage of development.
@@ -18,7 +18,7 @@ A PostgreSQL CLI tool for robust schema migrations and data transformations
 ## Install
 
 ```bash
-npm i pctp
+npm i pg-copy-transform-pipeline
 ```
 
 ## Usage
