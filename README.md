@@ -1,4 +1,4 @@
-# Postgres Copy Transform Pipeline
+# PostgreSQL Copy Transform Pipeline
 
 > [!IMPORTANT]
 > This project is still in the early stage of development.
@@ -23,6 +23,29 @@ npm i pg-copy-transform-pipeline
 
 ## Usage
 
-```bash
-pctp start
-```
+1. Ensure `package.json` includes `"type": "module"`:
+
+   ```json
+   {
+     "type": "module"
+   }
+   ```
+
+2. Create a `.env` file with the following content:
+
+   ```env
+   SOURCE_DATABASE_URL=postgresql://
+   TARGET_DATABASE_URL=postgresql://
+   ```
+
+3. Initialize:
+
+   ```bash
+   npx pctp init
+   ```
+
+4. Start:
+
+   ```bash
+   npx pctp start
+   ```
