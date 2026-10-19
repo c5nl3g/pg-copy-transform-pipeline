@@ -7,16 +7,24 @@ import { pathToFileURL } from "node:url";
 import { Worker } from "node:worker_threads";
 import { TransformWorkerRpcs } from "./rpc";
 
+declare const __TRANSFORM_WORKER_URL__: string | undefined;
+
 const WorkerLive = (transformModule?: string) =>
   NodeWorker.layer(
     () =>
-      new Worker(new URL("./index.ts", import.meta.url), {
-        workerData: {
-          transformModule: transformModule
-            ? pathToFileURL(path.resolve(transformModule)).href
-            : undefined,
+      new Worker(
+        new URL(
+          typeof __TRANSFORM_WORKER_URL__ !== "undefined" ? __TRANSFORM_WORKER_URL__ : "./index.ts",
+          import.meta.url,
+        ),
+        {
+          workerData: {
+            transformModule: transformModule
+              ? pathToFileURL(path.resolve(transformModule)).href
+              : undefined,
+          },
         },
-      }),
+      ),
   );
 
 const ProtocolLive = (transformModule?: string) =>
