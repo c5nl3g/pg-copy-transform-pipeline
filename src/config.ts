@@ -8,7 +8,7 @@ import {
   TRANSFORM_MODULE_TEMPLATE,
 } from "./templates/transform-module";
 
-import type { Config } from "~/types";
+import type { PctpConfig } from "~/types";
 
 const debug = createDebug(`${pkgJson.aliasName}:config`);
 
@@ -20,12 +20,12 @@ export function initTransformModule() {
   initTemplate(TRANSFORM_MODULE_FILE_NAME, TRANSFORM_MODULE_TEMPLATE);
 }
 
-export function defineConfig(config: Config) {
+export function defineConfig(config: PctpConfig) {
   return config;
 }
 
-export async function resolveConfig(): Promise<Config> {
-  const loader = createConfigLoader<Config>({
+export async function resolveConfig(): Promise<PctpConfig> {
+  const loader = createConfigLoader<PctpConfig>({
     sources: [
       {
         files: [`${pkgJson.aliasName}.config`],

@@ -10,7 +10,7 @@ import pg from "pg";
 import { from as copyFrom, to as copyTo } from "pg-copy-streams";
 import { TransformWorkerClient } from "./workers/transform/client";
 
-import type { Config, Pools } from "./types";
+import type { PctpConfig, Pools } from "./types";
 
 class PipelineError extends Data.TaggedError("PipelineError")<{
   readonly cause: unknown;
@@ -40,7 +40,7 @@ const leaseClient = (pool: pg.Pool) =>
     (client, exit) => Effect.sync(() => client.release(exit._tag === "Failure" ? true : undefined)),
   );
 
-const buildSourceSql = (options: Config, lastId?: string | number) => {
+const buildSourceSql = (options: PctpConfig, lastId?: string | number) => {
   let query = options.sourceSelectSQL
     .orderBy(options.sourceIdField, "asc")
     .limit(kSql.lit(options.batchSize));
@@ -53,7 +53,7 @@ const buildSourceSql = (options: Config, lastId?: string | number) => {
   return sql;
 };
 
-const copyBatchAttempt = (pools: Pools, options: Config, lastId?: string | number) =>
+const copyBatchAttempt = (pools: Pools, options: PctpConfig, lastId?: string | number) =>
   Effect.gen(function* () {
     yield* Effect.logInfo("yield* source client");
     const source = yield* leaseClient(pools.source);
@@ -123,13 +123,13 @@ const retryPolicy = (retry: number) =>
     ),
   );
 
-const copyBatch = (pools: Pools, options: Config, lastId?: string | number) =>
+const copyBatch = (pools: Pools, options: PctpConfig, lastId?: string | number) =>
   copyBatchAttempt(pools, options, lastId).pipe(
     Effect.tapError((e) => Effect.logError(`batch attempt failed: ${String(e)}`, e.cause)),
     Effect.retry(retryPolicy(options.retry)),
   );
 
-const copyAll = (pools: Pools, options: Config) =>
+const copyAll = (pools: Pools, options: PctpConfig) =>
   Effect.gen(function* () {
     let lastId = yield* readCheckpoint; // undefined => start from the beginning
     let totalProcessed = 0;
@@ -163,7 +163,7 @@ const copyAll = (pools: Pools, options: Config) =>
   });
 
 export const mainEffect = (
-  options: { sourceDatabaseUrl: string; targetDatabaseUrl: string } & Config,
+  options: { sourceDatabaseUrl: string; targetDatabaseUrl: string } & PctpConfig,
 ) =>
   Effect.gen(function* () {
     const pools: Pools = {

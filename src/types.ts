@@ -4,7 +4,7 @@ import type pg from "pg";
 export interface SourceDB {}
 export interface TargetDB {}
 
-export interface Config {
+export interface PctpConfig {
   sourceSelectSQL: SelectQueryBuilder<SourceDB, keyof SourceDB, any>;
   sourceTotalCountSQL?: SelectQueryBuilder<
     SourceDB,
