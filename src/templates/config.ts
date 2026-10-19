@@ -15,8 +15,7 @@ export default defineConfig({
   targetTable: "",
   targetColumns: [],
   batchSize: 1000,
-  // transformModule: "./${TRANSFORM_MODULE_FILE_NAME}",
   retry: 10,
-  lastId: undefined,
+  // transformModule: "./${TRANSFORM_MODULE_FILE_NAME}"
 });
 `;

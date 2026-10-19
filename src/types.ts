@@ -17,9 +17,8 @@ export interface Config {
   targetTable: keyof TargetDB;
   targetColumns: ReferenceExpression<TargetDB, keyof TargetDB>[];
   batchSize: number;
-  lastId?: string;
-  transformModule?: string; // file URL
   retry: number;
+  transformModule?: string; // file URL
 }
 
 export type Pools = { source: pg.Pool; target: pg.Pool };
