@@ -137,17 +137,25 @@ const copyAll = (pools: Pools, options: PctpConfig) =>
     let totalCount: number | undefined = undefined;
 
     if (options.sourceTotalCountSQL) {
-      yield* Effect.logInfo("getting total count...");
-      const totalCountSQL = options.sourceTotalCountSQL.compile().sql;
+      const totalCountSQL = (
+        lastId !== undefined
+          ? options.sourceTotalCountSQL.where(options.sourceIdField, ">", kSql.lit(lastId))
+          : options.sourceTotalCountSQL
+      ).compile().sql;
       yield* Effect.logInfo("total count SQL:", totalCountSQL);
       const source = yield* leaseClient(pools.source);
       const result = yield* Effect.promise(() => source.query(totalCountSQL));
       totalCount = Number(result.rows[0].totalCount);
+      yield* Effect.logInfo("total count:", totalCount);
     }
 
     while (true) {
       const batch = yield* copyBatch(pools, options, lastId);
-      if (batch.count === 0) break; // no more rows
+      if (batch.count === 0) {
+        // no more rows
+        yield* Effect.logInfo("batch count === 0");
+        break;
+      }
 
       lastId = batch.lastId;
       totalProcessed += batch.count;
