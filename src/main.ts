@@ -87,7 +87,8 @@ const copyBatchAttempt = (pools: Pools, options: PctpConfig, lastId?: string | n
     const copyToSql = `COPY (${buildSourceSql(options, lastId)}) TO STDOUT WITH (FORMAT csv, HEADER true)`;
     yield* Effect.logInfo("COPY TO SQL", copyToSql);
 
-    const copyFromSql = `COPY ${options.targetTable as any} FROM STDIN WITH (FORMAT csv)`;
+    // oxlint-disable-next-line typescript/no-base-to-string typescript/restrict-template-expressions
+    const copyFromSql = `COPY ${options.targetTable} (${options.targetColumns.map((c) => `"${c}"`).join(", ")}) FROM STDIN WITH (FORMAT csv)`;
     yield* Effect.logInfo("COPY FROM SQL", copyFromSql);
 
     yield* Effect.logInfo("Target database query: BEGIN");
