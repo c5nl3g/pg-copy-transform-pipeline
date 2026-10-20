@@ -2,6 +2,15 @@
   "name": "pg-copy-transform-pipeline",
   "version": "0.2.1",
   "description": "PostgreSQL COPY Transform Pipeline",
+  "keywords": [
+    "copy",
+    "in",
+    "out",
+    "pipline",
+    "postgres",
+    "stream",
+    "transform"
+  ],
   "homepage": "https://github.com/c5nl3g/pg-copy-transform-pipeline#readme",
   "bugs": {
     "url": "https://github.com/c5nl3g/pg-copy-transform-pipeline/issues"
