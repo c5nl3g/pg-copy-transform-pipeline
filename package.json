@@ -56,15 +56,15 @@
     "unconfig": "7.5.0"
   },
   "devDependencies": {
-    "@effect/tsgo": "0.53.3",
+    "@effect/tsgo": "0.54.1",
     "@types/node": "26.6.5",
     "@types/pg": "8.23.1",
     "@types/pg-copy-streams": "1.2.5",
     "husky": "9.1.7",
     "lint-staged": "17.6.0",
     "oxfmt": "latest",
-    "oxlint": "1.87.0",
-    "oxlint-tsgolint": "7.0.2003",
+    "oxlint": "1.89.0",
+    "oxlint-tsgolint": "7.0.2004",
     "tsdown": "0.23.1",
     "tsx": "4.23.15",
     "vitest": "5.0.5"
