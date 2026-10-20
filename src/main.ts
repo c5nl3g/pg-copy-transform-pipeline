@@ -2,7 +2,7 @@ import { parse } from "csv-parse";
 import { stringify } from "csv-stringify";
 import { Data, Effect, Schedule } from "effect";
 import { sql as kSql } from "kysely";
-import { readFile, unlink, writeFile } from "node:fs/promises";
+import { readFile, rm, writeFile } from "node:fs/promises";
 import { availableParallelism } from "node:os";
 import { Readable, Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
@@ -26,7 +26,7 @@ const readCheckpoint = Effect.tryPromise(async () => {
 const writeCheckpoint = (lastId: string | number) =>
   Effect.tryPromise(() => writeFile(CHECKPOINT_FILE, JSON.stringify({ lastId })));
 
-const clearCheckpoint = () => Effect.tryPromise(() => unlink(CHECKPOINT_FILE));
+const clearCheckpoint = () => Effect.tryPromise(() => rm(CHECKPOINT_FILE, { force: true }));
 
 const makePool = (connectionString: string) =>
   Effect.acquireRelease(
