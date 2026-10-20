@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Kysely", "obug", "pctp", "unconfig"]
+  "cSpell.words": ["Kysely", "obug", "pctp", "unconfig"],
+  "js/ts.experimental.useTsgo": true
 }
