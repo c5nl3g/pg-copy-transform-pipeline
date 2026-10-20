@@ -102,7 +102,7 @@ const copyBatchAttempt = (pools: Pools, options: PctpConfig, lastId?: string | n
           parse({ columns: true, bom: true, skip_empty_lines: true }),
           track,
           transformStage,
-          stringify({ columns: options.targetColumns as any }),
+          stringify({ columns: options.targetColumns as any, quoted_empty: true }),
           target.query(copyFrom(copyFromSql)),
           { signal },
         ),
