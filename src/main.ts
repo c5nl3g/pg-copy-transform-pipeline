@@ -168,7 +168,7 @@ const copyAll = (pools: Pools, options: PctpConfig) =>
 
     yield* clearCheckpoint();
 
-    return totalProcessed;
+    return { totalProcessed };
   });
 
 export const mainEffect = (
@@ -179,5 +179,9 @@ export const mainEffect = (
       source: yield* makePool(options.sourceDatabaseUrl),
       target: yield* makePool(options.targetDatabaseUrl),
     };
-    return yield* copyAll(pools, options);
+
+    const summary = yield* copyAll(pools, options);
+    yield* Effect.logInfo("copyAll completed", summary);
+
+    return;
   }).pipe(Effect.scoped, Effect.provide(TransformWorkerClient.layer(options.transformModule)));

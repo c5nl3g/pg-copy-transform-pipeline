@@ -54,6 +54,8 @@ cli.command("start", "Start copy and transform").action(async () => {
       targetDatabaseUrl: process.env.TARGET_DATABASE_URL,
     }),
   );
+
+  process.exit(0);
 });
 
 cli.help();
