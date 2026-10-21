@@ -1,3 +1,4 @@
+import path from "node:path";
 import { createDebug } from "obug";
 import { createConfigLoader } from "unconfig";
 import pkgJson from "../package.json";
@@ -24,20 +25,32 @@ export function defineConfig(config: PctpConfig) {
   return config;
 }
 
-export async function resolveConfig(): Promise<PctpConfig> {
+interface ResolveConfigOptions {
+  configPath?: string;
+}
+
+export async function resolveConfig(options: ResolveConfigOptions = {}): Promise<PctpConfig> {
+  const { configPath } = options;
+  const absolutePath = configPath ? path.resolve(process.cwd(), configPath) : undefined;
+
   const loader = createConfigLoader<PctpConfig>({
     sources: [
-      {
-        files: [`${pkgJson.aliasName}.config`],
-      },
+      absolutePath
+        ? {
+            files: [path.basename(absolutePath)],
+            extensions: [""],
+          }
+        : {
+            files: [`${pkgJson.aliasName}.config`],
+          },
     ],
-    cwd: process.cwd(),
+    cwd: absolutePath ? path.dirname(absolutePath) : process.cwd(),
     merge: false,
   });
 
-  const config = await loader.load();
+  const result = await loader.load();
 
-  debug(config);
+  debug(result.config);
 
-  return config.config;
+  return result.config;
 }
