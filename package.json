@@ -60,11 +60,11 @@
     "obug": "3.0.0",
     "pg": "8.23.1",
     "pg-copy-streams": "7.0.0",
-    "typescript": "latest",
+    "typescript": "7.0.2",
     "unconfig": "7.5.0"
   },
   "devDependencies": {
-    "@effect/tsgo": "0.54.1",
+    "@effect/tsgo": "0.55.0",
     "@types/node": "26.6.5",
     "@types/pg": "8.23.1",
     "@types/pg-copy-streams": "1.2.5",
